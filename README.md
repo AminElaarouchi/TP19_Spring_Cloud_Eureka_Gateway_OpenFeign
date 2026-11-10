@@ -94,3 +94,39 @@ Dans ce profil, `/clients`, `/client/{id}` et `/voitures` sont dirigés vers `lo
 ## Résultat vérifié
 
 Le 10 novembre 2026, `mvn -B -ntp package` a réussi. Les deux tests d'intégration JUnit ont réussi. Le script `smoke-test.ps1` a confirmé les trois clients, les trois voitures, leur association via OpenFeign, les routes Gateway avec Eureka et le profil statique, puis la création, la modification et la suppression d'une voiture via la Gateway.
+
+## Captures des résultats
+
+Captures fournies lors de l'exécution du TP19. Les cinq premières montrent les réponses obtenues par la Gateway sur le port 8888 ; les deux dernières montrent l'accès direct aux microservices.
+
+### Via la Gateway
+
+`GET http://localhost:8888/clients` — liste des trois clients :
+
+![Liste des clients via la Gateway](docs/gateway-clients.jpg)
+
+`GET http://localhost:8888/client/1` — premier client :
+
+![Premier client via la Gateway](docs/gateway-client-1.jpg)
+
+`GET http://localhost:8888/voitures` — voitures enrichies avec leurs clients :
+
+![Liste des voitures via la Gateway](docs/gateway-voitures.jpg)
+
+`GET http://localhost:8888/SERVICE-CLIENT/clients` — routage par nom de service :
+
+![Clients via le nom SERVICE-CLIENT](docs/gateway-service-client.jpg)
+
+`GET http://localhost:8888/SERVICE-VOITURE/voitures` — routage par nom de service :
+
+![Voitures via le nom SERVICE-VOITURE](docs/gateway-service-voiture.jpg)
+
+### Accès direct aux microservices
+
+`GET http://localhost:8088/clients` — service Client :
+
+![Liste directe des clients](docs/service-client-clients.jpg)
+
+`GET http://localhost:8089/voitures/1` — service Voiture et client récupéré par OpenFeign :
+
+![Voiture et client via OpenFeign](docs/service-voiture-1.jpg)
